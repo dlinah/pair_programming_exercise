@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import ReactDOM from 'react-dom';
+import AppContainer from './common/containers/App';
+import './styles/_main.scss';
+import Routes from './routes';
 
-const App =()=>(<div>react app</div>)
+export const ThemeContext = createContext();
+
+const Root = () => {
+  const [isDark, setIsDark] = useState(false);
+  return (
+    <ThemeContext.Provider value={{ isDark, setIsDark }}>
+      <AppContainer className={isDark ? "dark-mode" : ""}>
+        <Routes />
+      </AppContainer>
+    </ThemeContext.Provider>
+  );
+};
 
 ReactDOM.render(
-  <App/>,
+  <Root />,
   document.getElementById('root')
 );
